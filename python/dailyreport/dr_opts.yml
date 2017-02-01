@@ -1,0 +1,6 @@
+feeds: {
+    bbc: 'http://feeds.bbci.co.uk/news/rss.xml?edition=uk', 
+    economist: 'http://www.economist.com/sections/economics/rss.xml'
+}
+journey: Watford Junction to London Euston
+location: london,uk
