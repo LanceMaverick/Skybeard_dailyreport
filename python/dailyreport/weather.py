@@ -11,7 +11,19 @@ def make_forecast(key, location):
     current_temp = current_obs.get_temperature('celsius')['temp']
 
     #forecast
-    forecast = owm.daily_forecast(location)
+    #sometimes all fails... 
+    forecast = None
+    max_retries = 5
+    retries = 0
+    while not forecast:
+        if retries > max_retries:
+            raise Exception('Max retries reached')
+        try:
+            forecast = owm.daily_forecast(location)
+        except KeyError:
+            retries+=1
+            pass
+
     fcs = []
     for fc in forecast.get_forecast():
         fcs.append(dict(
@@ -23,5 +35,5 @@ def make_forecast(key, location):
     return dict(
             temp = current_temp,
             status = current_status,
-            forecasts = fcs)
+            forecasts = fcs,)
 
